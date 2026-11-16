@@ -1,0 +1,13 @@
+$ java -jar target/spring-concepts-1.0.jar --paiement.actif=false
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Parameter 3 of constructor in boutique.CommandeService required a bean of type 'boutique.Paiement' that could not be found.
+
+Action:
+
+Consider defining a bean of type 'boutique.Paiement' in your configuration.
+
+(code de sortie : 1)

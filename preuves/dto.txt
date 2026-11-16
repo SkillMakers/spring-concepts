@@ -1,0 +1,21 @@
+$ curl http://localhost:8080/clients/2/entite
+HTTP 200
+{"nom":"Hugo","email":"hugo@exemple.fr","motDePasseHash":"$2a$10$Lk7s2Dq9vB3nXcEr5tYwUi1Op8aS4dF6gH0jK2lZ3xC5vB7nM9qWe","commandes":[],"id":2}
+
+$ curl http://localhost:8080/clients/1/entite
+HTTP 200
+{"nom":"Lea","email":"lea@exemple.fr","motDePasseHash":"$2a$10$Qm4p1Xv8bN0eYdTq7rLwUe9Jt3sK2fH6gC5aZ1oP4iR8uV0wY2xMa","commandes":[{"article":{"nom":"souris","prix":20,"stock":10,"id":3},"client":{"nom":"Lea","email":"lea@exemple.fr","motDePasseHash":"$2a$10$Qm4p1Xv8bN0eYdTq7rLwUe9Jt3sK2fH6gC5aZ1oP4iR8uV0wY2xMa","commandes":[{"article":{"nom":"souris","prix":20,"stock":10,"id":3},"client":{"nom":"Lea","email":"lea@exemple.fr","motDePasseHash":"$2a$10$Qm4p1Xv8bN0eYdTq7rLwUe9Jt3sK2fH6gC5aZ1oP4iR8uV0wY2xMa","commandes":[{"article":{"nom":"souris","prix":20,"stock":10,"id":3},"client":{"nom":"Lea" [...]
+(33167 octets en tout ; les 60 derniers : }]}}]}}]}}]}}]}}]}}]}}]}}]}}]}}]}}]}}]}}]}}]}}]}}]}}]}}]}}]})
+
+$ curl http://localhost:8080/clients/1
+HTTP 200
+{"id":1,"nom":"Lea","nombreCommandes":1}
+
+$ curl http://localhost:8080/clients/2
+HTTP 200
+{"id":2,"nom":"Hugo","nombreCommandes":0}
+
+$ curl http://localhost:8080/clients/99
+HTTP 404
+{"timestamp":"2026-11-16T16:04:05.706Z","status":404,"error":"Not Found","path":"/clients/99"}
+

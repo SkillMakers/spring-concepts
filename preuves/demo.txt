@@ -1,0 +1,44 @@
+$ java -jar target/spring-concepts-1.0.jar --demo=true
+
+== 1. Les beans
+beans dans le conteneur : 155
+dont les notres (16) : articleRepository, boutiqueApplication, caisse, calculPrix, calculPrixChamp, carteBancaire, clientController, clientRepository, clientService, commandeRepository, commandeService, demo, donnees, panier, remboursement, remiseFidelite
+le meme objet a chaque demande ? true
+panier : le meme objet a chaque demande ? false
+calculPrix.total(200) = 180
+
+== 2. Ce que Spring injecte vraiment
+commandeService.getClass() : boutique.CommandeService$$SpringCGLIB$$0
+c'est un proxy ? true
+calculPrix.getClass()      : boutique.CalculPrix
+c'est un proxy ? false
+
+== 3. Sans @Transactional : 5 claviers demandes, 3 en stock
+    transaction active : false
+    exception : IllegalStateException (stock insuffisant : 3 en stock, 5 demandes)
+apres : stock = 3, commandes en base = 1
+
+== 4. Avec @Transactional : la meme commande
+    transaction active : true
+    exception : IllegalStateException (stock insuffisant : 3 en stock, 5 demandes)
+apres : stock = 3, commandes en base = 0
+
+== 5. @Transactional et une exception verifiee : 2 ecrans a 300 euros, plafond 500
+    transaction active : true
+    exception : PaiementRefuse (paiement refuse : 600 euros, plafond 500)
+apres : stock = 1, commandes en base = 1
+
+== 6. @Transactional(rollbackFor = PaiementRefuse.class) : la meme commande
+    transaction active : true
+    exception : PaiementRefuse (paiement refuse : 600 euros, plafond 500)
+apres : stock = 3, commandes en base = 0
+
+== 7. Le piege : commander() appelle this.passer(), qui est @Transactional
+    transaction active : false
+    exception : IllegalStateException (stock insuffisant : 3 en stock, 5 demandes)
+apres : stock = 3, commandes en base = 1
+
+== 8. La correction : la Caisse, un autre bean, appelle commandeService.passer()
+    transaction active : true
+    exception : IllegalStateException (stock insuffisant : 3 en stock, 5 demandes)
+apres : stock = 3, commandes en base = 0

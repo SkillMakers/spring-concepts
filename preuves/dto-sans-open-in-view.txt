@@ -1,0 +1,6 @@
+$ curl http://localhost:8081/clients/1/entite
+HTTP 500
+{"timestamp":"2026-11-16T16:04:26.620Z","status":500,"error":"Internal Server Error","path":"/clients/1/entite"}
+
+(journal du serveur, premiere ligne d'erreur :)
+2026-11-16T16:04:26.619Z  WARN 623 --- [boutique] [nio-8081-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotWritableException: Could not write JSON: Cannot lazily initialize collection of role 'boutique.Client.commandes' with key '1' (no session)]

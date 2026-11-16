@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: boutique
+  datasource:
+    url: jdbc:h2:mem:boutique
